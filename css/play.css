@@ -19,6 +19,17 @@ h6 {
     1px 1px 0 #000;
 }
 
+body {
+  margin-left: 250px;
+
+  width: calc(100% - 250px);
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sidebar {
   background-color: #dda059;
   border: 8px solid #6b3710;
@@ -28,8 +39,33 @@ h6 {
   height: 100vh;
   padding: 10px;
   position: fixed;
+  left: 0;
 
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(12, 48px);
+  grid-template-rows: repeat(12, 48px);
+
+  width: fit-content;
+  height: 100%;
+
+  background-color: #dda059;
+  border: 8px solid #6b3710;
+}
+
+.cell {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cell.planted {
+  background-color: #8bc34a;
 }
