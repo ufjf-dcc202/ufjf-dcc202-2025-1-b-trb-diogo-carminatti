@@ -76,6 +76,11 @@ body {
   border: 1px solid #6a320a;
 }
 
+.cell[data-type="dry"] {
+  background-color: #dfaf70;
+  border: 1px solid #ab7a41;
+}
+
 .cell > .obstacle {
   width: 100%;
   height: 100%;
@@ -180,4 +185,33 @@ body {
 
 .seed[data-type="potato"] {
   background-image: url("../images/potato/potato-seeds.png");
+}
+
+.plant {
+  width: 100%;
+  height: 100%;
+
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.plant[data-type="carrot"][data-stage="1"] {
+  background-image: url("../images/carrot/carrot-stage-1.png");
+}
+
+.plant[data-type="carrot"][data-stage="2"] {
+  background-image: url("../images/carrot/carrot-stage-2.png");
+}
+
+.plant[data-type="carrot"][data-stage="3"] {
+  background-image: url("../images/carrot/carrot-stage-3.png");
+}
+
+.plant[data-type="tomato"][data-stage="1"] {
+  background-image: url("../images/tomato/tomato-stage-1.png");
+}
+
+.plant[data-type="potato"][data-stage="1"] {
+  background-image: url("../images/potato/potato-stage-1.png");
 }

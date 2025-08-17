@@ -1,6 +1,7 @@
 import { findToolById, getTools } from "./tools.js";
-import { getSeeds } from "./seeds.js";
+import { findSeedById, getSeeds } from "./seeds.js";
 import { findObstacleById, getObstacles } from "./obstacles.js";
+import { findPlantById } from "./plants.js";
 
 const state = {
   money: 100,
@@ -44,7 +45,9 @@ function handleCellClick(event) {
     return;
   }
 
-  if (state.currentSeed !== null) {
+  if (cell.dataset.type === "plowed" && state.currentSeed !== null) {
+    const plantElement = createPlantElement();
+    cell.appendChild(plantElement);
   }
 }
 
@@ -75,6 +78,47 @@ function handleObstacleClick(event) {
   ) {
     obstacle.remove();
   }
+}
+
+function createPlantElement() {
+  const plantElement = document.createElement("div");
+  plantElement.dataset.id = state.currentSeed.id;
+  plantElement.dataset.type = state.currentSeed.type;
+  plantElement.dataset.stage = 1;
+  plantElement.classList.add("plant");
+
+  createPlantClock(plantElement);
+
+  return plantElement;
+}
+
+function createPlantClock(plantElement) {
+  const plantClock = setInterval(() => {
+    const currentStage = Number(plantElement.dataset.stage);
+    const plantType = findPlantById(Number(plantElement.dataset.id));
+    const plantNeedWater = Boolean(plantElement.dataset.needWater);
+
+    if (currentStage < plantType.growthTime) {
+      plantElement.dataset.stage = currentStage + 1;
+    } else {
+      clearInterval(plantClock);
+      return;
+    }
+
+    if (plantNeedWater) removePlant(plantElement);
+    else {
+      const parentElement = plantElement.parentElement;
+      parentElement.dataset.type = "dry";
+      plantElement.dataset.needWater = true;
+    }
+  }, 5000);
+}
+
+function removePlant(plantElement) {
+  const parentElement = plantElement.parentElement;
+  parentElement.innerHTML = "";
+  parentElement.dataset.type = "empty";
+  plantElement.remove();
 }
 
 function createGameTools() {
@@ -134,7 +178,7 @@ function handleSeedClick(event) {
     selectedTool.classList.remove("selected");
   });
 
-  if (state.currentSeed !== null && seedId === state.currentSeed) {
+  if (state.currentSeed !== null && seedId === state.currentSeed.id) {
     state.currentSeed = null;
     seed.classList.remove("selected");
     return;

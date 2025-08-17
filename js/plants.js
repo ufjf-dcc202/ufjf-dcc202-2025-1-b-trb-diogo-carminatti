@@ -2,19 +2,27 @@ const plants = [
   {
     id: 1,
     name: "Carrot",
-    growthTime: 5,
+    growthTime: 3,
     sellPrice: 16,
   },
   {
     id: 2,
     name: "Tomato",
-    growthTime: 7,
-    sellPrice: 22,
+    growthTime: 5,
+    sellPrice: 16,
   },
   {
     id: 3,
     name: "Potato",
-    growthTime: 4,
+    growthTime: 5,
     sellPrice: 14,
   },
 ];
+
+export function getPlants() {
+  return [...plants];
+}
+
+export function findPlantById(id) {
+  return plants.find((plant) => plant.id === id);
+}
