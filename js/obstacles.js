@@ -1,6 +1,6 @@
 const obstacles = [
-  { id: 1, class: "rock", interactToolId: 3 },
-  { id: 2, class: "bush", interactToolId: 2 },
+  { id: 1, type: "rock", interactToolId: 3 },
+  { id: 2, type: "bush", interactToolId: 2 },
 ];
 
 export function getObstacles() {

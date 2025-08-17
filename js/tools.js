@@ -2,20 +2,24 @@ const tools = [
   {
     id: 1,
     name: "Watering Can",
-    class: "watering-can",
+    type: "watering-can",
   },
   {
     id: 2,
     name: "Hoe",
-    class: "hoe",
+    type: "hoe",
   },
   {
     id: 3,
     name: "Pickaxe",
-    class: "pickaxe",
+    type: "pickaxe",
   },
 ];
 
 export function getTools() {
   return [...tools];
+}
+
+export function findToolById(id) {
+  return tools.find((tool) => tool.id === Number(id));
 }

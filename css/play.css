@@ -61,11 +61,19 @@ body {
 }
 
 .cell {
-  background-color: #6dbf4b;
-  border: 1px solid #3e7c1f;
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.cell[data-type="empty"] {
+  background-color: #3e7c1f;
+  border: 1px solid #275a0e;
+}
+
+.cell[data-type="plowed"] {
+  background-color: #8b4513;
+  border: 1px solid #6a320a;
 }
 
 .cell > .obstacle {
@@ -76,11 +84,11 @@ body {
   background-position: center;
 }
 
-.cell > .obstacle.rock {
+.cell > .obstacle[data-type="rock"] {
   background-image: url("../images/rock.png");
 }
 
-.cell > .obstacle.bush {
+.cell > .obstacle[data-type="bush"] {
   background-image: url("../images/bush.png");
 }
 
@@ -117,15 +125,15 @@ body {
   border: 2px solid red;
 }
 
-.tool.hoe {
+.tool[data-type="hoe"] {
   background-image: url("../images/hoe.png");
 }
 
-.tool.pickaxe {
+.tool[data-type="pickaxe"] {
   background-image: url("../images/pickaxe.png");
 }
 
-.tool.watering-can {
+.tool[data-type="watering-can"] {
   background-image: url("../images/watering-can.png");
 }
 
@@ -162,14 +170,14 @@ body {
   border: 2px solid red;
 }
 
-.seed.carrot {
+.seed[data-type="carrot"] {
   background-image: url("../images/carrot/carrot-seeds.png");
 }
 
-.seed.tomato {
+.seed[data-type="tomato"] {
   background-image: url("../images/tomato/tomato-seeds.png");
 }
 
-.seed.potato {
+.seed[data-type="potato"] {
   background-image: url("../images/potato/potato-seeds.png");
 }
