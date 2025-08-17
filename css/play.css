@@ -28,6 +28,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-image: linear-gradient(to bottom, #0d6686, #151152);
 }
 
 .sidebar {
@@ -59,13 +61,25 @@ body {
 }
 
 .cell {
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: #6dbf4b;
+  border: 1px solid #3e7c1f;
   width: 100%;
   height: 100%;
   position: relative;
 }
 
-.cell.planted {
-  background-color: #8bc34a;
+.cell > .obstacle {
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.cell > .obstacle.rock {
+  background-image: url("../images/rock.png");
+}
+
+.cell > .obstacle.bush {
+  background-image: url("../images/bush.png");
 }
