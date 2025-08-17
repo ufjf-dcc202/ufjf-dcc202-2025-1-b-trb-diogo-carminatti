@@ -83,3 +83,48 @@ body {
 .cell > .obstacle.bush {
   background-image: url("../images/bush.png");
 }
+
+.tools-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.tools-board {
+  width: fit-content;
+
+  display: flex;
+  column-gap: 4px;
+
+  background-color: #6b3710;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+
+.tool {
+  width: 48px;
+  height: 48px;
+
+  background-color: #dda059;
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+}
+
+.tool.selected {
+  border: 2px solid red;
+}
+
+.tool.hoe {
+  background-image: url("../images/hoe.png");
+}
+
+.tool.pickaxe {
+  background-image: url("../images/pickaxe.png");
+}
+
+.tool.watering-can {
+  background-image: url("../images/watering-can.png");
+}
