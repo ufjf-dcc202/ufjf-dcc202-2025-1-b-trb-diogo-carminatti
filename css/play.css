@@ -105,7 +105,7 @@ body {
   width: 48px;
   height: 48px;
 
-  background-color: #dda059;
+  background-color: #fff;
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat;
@@ -127,4 +127,49 @@ body {
 
 .tool.watering-can {
   background-image: url("../images/watering-can.png");
+}
+
+.seeds-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.seeds-board {
+  width: fit-content;
+
+  display: flex;
+  column-gap: 4px;
+
+  background-color: #6b3710;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+}
+
+.seed {
+  width: 48px;
+  height: 48px;
+
+  background-color: #fff;
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+}
+
+.seed.selected {
+  border: 2px solid red;
+}
+
+.seed.carrot {
+  background-image: url("../images/carrot/carrot-seeds.png");
+}
+
+.seed.tomato {
+  background-image: url("../images/tomato/tomato-seeds.png");
+}
+
+.seed.potato {
+  background-image: url("../images/potato/potato-seeds.png");
 }
