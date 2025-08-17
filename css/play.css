@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.sidebar {
+  background-color: #dda059;
+  border: 8px solid #6b3710;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+
+  width: 250px;
+  height: 100vh;
+  padding: 10px;
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
