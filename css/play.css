@@ -60,28 +60,28 @@ body {
   border: 8px solid #6b3710;
 }
 
-.cell {
+.block {
   width: 100%;
   height: 100%;
   position: relative;
 }
 
-.cell[data-type="empty"] {
+.block[data-type="empty"] {
   background-color: #3e7c1f;
   border: 1px solid #275a0e;
 }
 
-.cell[data-type="plowed"] {
+.block[data-type="plowed"] {
   background-color: #8b4513;
   border: 1px solid #6a320a;
 }
 
-.cell[data-type="dry"] {
+.block[data-type="dry"] {
   background-color: #dfaf70;
   border: 1px solid #ab7a41;
 }
 
-.cell > .obstacle {
+.block > .obstacle {
   width: 100%;
   height: 100%;
 
@@ -89,11 +89,11 @@ body {
   background-position: center;
 }
 
-.cell > .obstacle[data-type="rock"] {
+.block > .obstacle[data-type="rock"] {
   background-image: url("../images/rock.png");
 }
 
-.cell > .obstacle[data-type="bush"] {
+.block > .obstacle[data-type="bush"] {
   background-image: url("../images/bush.png");
 }
 

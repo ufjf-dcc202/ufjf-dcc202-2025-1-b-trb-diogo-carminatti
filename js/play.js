@@ -1,9 +1,11 @@
-import { findToolById, getTools } from "./tools.js";
-import { findSeedById, getSeeds } from "./seeds.js";
-import { findObstacleById, getObstacles } from "./obstacles.js";
-import { findPlantById } from "./plants.js";
+import { EmptyField } from "./entities/Block.js";
+import { Bush, Rock } from "./entities/Obstacle.js";
+import { addObstacle } from "./core/obstacles.js";
+import { addBlock } from "./core/blocks.js";
+import { getTools } from "./core/tools.js";
+import { getSeeds } from "./core/seeds.js";
 
-const state = {
+export const state = {
   money: 100,
   currentTool: null,
   currentSeed: null,
@@ -22,173 +24,54 @@ function onStartGame() {
 
 function createGameBoard() {
   for (let i = 0; i < 144; i++) {
-    const cell = document.createElement("div");
-    cell.dataset.index = i;
-    cell.dataset.type = "empty";
-    cell.classList.add("cell");
-    cell.addEventListener("click", handleCellClick);
+    const blockElement = document.createElement("div");
+    const block = new EmptyField(i, i, blockElement);
 
-    const obstacle = createObstacles();
+    const obstacle = createObstacle(i);
     if (obstacle) {
-      cell.appendChild(obstacle);
+      block.addChild(obstacle.element);
+      addObstacle(obstacle);
     }
-    gameBoard.appendChild(cell);
+
+    gameBoard.appendChild(blockElement);
+    addBlock(block);
   }
 }
 
-function handleCellClick(event) {
-  const cell = event.target;
-  if (cell.innerHTML !== "") return;
-
-  if (state.currentTool !== null && state.currentTool.type === "hoe") {
-    cell.dataset.type = "plowed";
-    return;
-  }
-
-  if (cell.dataset.type === "plowed" && state.currentSeed !== null) {
-    const plantElement = createPlantElement();
-    cell.appendChild(plantElement);
-  }
-}
-
-function createObstacles() {
-  const obstacles = getObstacles();
+function createObstacle(index) {
   const obstacleElement = document.createElement("div");
-  const randomNumber = Math.floor(Math.random() * (obstacles.length + 1));
+  const randomNumber = Math.floor(Math.random() * 3 + 1);
 
-  if (randomNumber < obstacles.length) {
-    obstacleElement.dataset.id = obstacles[randomNumber].id;
-    obstacleElement.dataset.type = obstacles[randomNumber].type;
-    obstacleElement.classList.add("obstacle");
-    obstacleElement.addEventListener("click", handleObstacleClick);
-    return obstacleElement;
-  } else {
-    return null;
+  let obstacle;
+  switch (randomNumber) {
+    case 1:
+      obstacle = new Rock(null, index, obstacleElement);
+      obstacle = addObstacle(obstacle);
+      break;
+    case 2:
+      obstacle = new Bush(null, index, obstacleElement);
+      obstacle = addObstacle(obstacle);
+      break;
+    case 3:
+      obstacle = null;
+      break;
   }
-}
 
-function handleObstacleClick(event) {
-  const obstacle = event.target;
-  const obstacleId = Number(obstacle.dataset.id);
-  const obstacleType = findObstacleById(obstacleId);
-
-  if (
-    obstacleType &&
-    obstacleType.interactToolId === Number(state.currentTool.id)
-  ) {
-    obstacle.remove();
-  }
-}
-
-function createPlantElement() {
-  const plantElement = document.createElement("div");
-  plantElement.dataset.id = state.currentSeed.id;
-  plantElement.dataset.type = state.currentSeed.type;
-  plantElement.dataset.stage = 1;
-  plantElement.classList.add("plant");
-
-  createPlantClock(plantElement);
-
-  return plantElement;
-}
-
-function createPlantClock(plantElement) {
-  const plantClock = setInterval(() => {
-    const currentStage = Number(plantElement.dataset.stage);
-    const plantType = findPlantById(Number(plantElement.dataset.id));
-    const plantNeedWater = Boolean(plantElement.dataset.needWater);
-
-    if (currentStage < plantType.growthTime) {
-      plantElement.dataset.stage = currentStage + 1;
-    } else {
-      clearInterval(plantClock);
-      return;
-    }
-
-    if (plantNeedWater) removePlant(plantElement);
-    else {
-      const parentElement = plantElement.parentElement;
-      parentElement.dataset.type = "dry";
-      plantElement.dataset.needWater = true;
-    }
-  }, 5000);
-}
-
-function removePlant(plantElement) {
-  const parentElement = plantElement.parentElement;
-  parentElement.innerHTML = "";
-  parentElement.dataset.type = "empty";
-  plantElement.remove();
+  return obstacle;
 }
 
 function createGameTools() {
   const tools = getTools();
   tools.forEach((tool) => {
-    const toolElement = document.createElement("div");
-    toolElement.dataset.id = tool.id;
-    toolElement.dataset.type = tool.type;
-    toolElement.classList.add("tool");
-    toolElement.addEventListener("click", handleToolClick);
-    toolsBoard.appendChild(toolElement);
+    toolsBoard.appendChild(tool.element);
   });
-}
-
-function handleToolClick(event) {
-  const tool = event.target;
-  const toolId = Number(tool.dataset.id);
-  const toolType = findToolById(toolId);
-
-  state.currentSeed = null;
-  seedsBoard.querySelectorAll(".seed.selected").forEach((selectedSeed) => {
-    selectedSeed.classList.remove("selected");
-  });
-
-  if (state.currentTool !== null && toolId === state.currentTool.id) {
-    state.currentTool = null;
-    tool.classList.remove("selected");
-    return;
-  }
-
-  state.currentTool = toolType;
-  toolsBoard.querySelectorAll(".tool.selected").forEach((selectedTool) => {
-    selectedTool.classList.remove("selected");
-  });
-  tool.classList.add("selected");
 }
 
 function createGameSeeds() {
   const seeds = getSeeds();
   seeds.forEach((seed) => {
-    const seedElement = document.createElement("div");
-    seedElement.dataset.id = seed.id;
-    seedElement.dataset.type = seed.type;
-    seedElement.classList.add("seed");
-    seedElement.addEventListener("click", handleSeedClick);
-    seedsBoard.appendChild(seedElement);
+    seedsBoard.appendChild(seed.element);
   });
-}
-
-function handleSeedClick(event) {
-  const seed = event.target;
-  const seedId = Number(seed.dataset.id);
-  const seedType = findSeedById(seedId);
-
-  state.currentTool = null;
-  toolsBoard.querySelectorAll(".tool.selected").forEach((selectedTool) => {
-    selectedTool.classList.remove("selected");
-  });
-
-  if (state.currentSeed !== null && seedId === state.currentSeed.id) {
-    state.currentSeed = null;
-    seed.classList.remove("selected");
-    return;
-  }
-
-  state.currentSeed = seedType;
-  seedsBoard.querySelectorAll(".seed.selected").forEach((selectedSeed) => {
-    selectedSeed.classList.remove("selected");
-  });
-  seed.classList.add("selected");
 }
 
 document.addEventListener("DOMContentLoaded", onStartGame);
