@@ -28,21 +28,25 @@ export class Block {
 }
 
 export class EmptyField extends Block {
-  constructor(id, position, element) {
+  constructor(id, position, element, active = true) {
     super(id, position, element);
     this.element.addEventListener("click", this.handleClick);
     this.element.dataset.type = blockTypes.EMPTY;
+    this.active = active;
   }
 
   handleClick() {
     if (
       state.currentTool !== null &&
       state.currentTool.type === "hoe" &&
-      this.element.innerHTML === ""
+      this.element.innerHTML === "" &&
+      this.active
     ) {
       const newBlock = new PlowedField(this.id, this.position, this.element);
       removeBlock(this);
       addBlock(newBlock);
+    } else {
+      this.active = true;
     }
   }
 }

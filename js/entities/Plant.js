@@ -68,7 +68,12 @@ class Plant {
     const emptyFieldElement = document.querySelector(
       `.block[data-id='${blockId}']`
     );
-    const newBlock = new EmptyField(null, block.position, emptyFieldElement);
+    const newBlock = new EmptyField(
+      null,
+      block.position,
+      emptyFieldElement,
+      false
+    );
     removeBlock(block);
     addBlock(newBlock);
 
