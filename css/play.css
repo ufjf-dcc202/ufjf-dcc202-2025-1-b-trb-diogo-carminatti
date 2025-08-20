@@ -1,23 +1,4 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-
-  font-family: "Pixelify Sans", sans-serif;
-  font-optical-sizing: auto;
-  color: #000;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #fff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-}
+@import "../css/global.css";
 
 body {
   margin-left: 250px;
@@ -48,13 +29,13 @@ body {
   row-gap: 1rem;
 }
 
-.game-navigation {
+.back-link {
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
-.game-navigation a {
+.back-link a {
   display: flex;
   align-items: center;
   justify-content: center;
