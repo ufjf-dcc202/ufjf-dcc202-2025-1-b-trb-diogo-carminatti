@@ -9,11 +9,12 @@ export const seedTypes = {
 };
 
 class Seed {
-  constructor(id, name, type, element) {
+  constructor(id, name, type, seedPrice, element) {
     element.classList.add("seed");
     this.id = id;
     this.name = name;
     this.type = type;
+    this.seedPrice = seedPrice;
     this.element = element;
     this.handleClick = this.handleClick.bind(this);
     element.addEventListener("click", this.handleClick);
@@ -53,7 +54,7 @@ class Seed {
 export class CarrotSeed extends Seed {
   constructor(id, element) {
     element.dataset.type = seedTypes.CARROT;
-    super(id, "carrot", seedTypes.CARROT, element);
+    super(id, "carrot", seedTypes.CARROT, 12, element);
   }
 
   getPlant() {
@@ -67,7 +68,7 @@ export class CarrotSeed extends Seed {
 export class PotatoSeed extends Seed {
   constructor(id, element) {
     element.dataset.type = seedTypes.POTATO;
-    super(id, "potato", seedTypes.POTATO, element);
+    super(id, "potato", seedTypes.POTATO, 14, element);
   }
 
   getPlant() {
@@ -81,7 +82,7 @@ export class PotatoSeed extends Seed {
 export class TomatoSeed extends Seed {
   constructor(id, element) {
     element.dataset.type = seedTypes.TOMATO;
-    super(id, "tomato", seedTypes.TOMATO, element);
+    super(id, "tomato", seedTypes.TOMATO, 16, element);
   }
 
   getPlant() {

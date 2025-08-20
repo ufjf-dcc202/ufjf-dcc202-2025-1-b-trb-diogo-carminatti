@@ -33,25 +33,30 @@ class Plant {
 
       this.needsWater = false;
     }
+
+    if (state.currentTool !== null && state.currentTool.type === "hoe") {
+      this.harvest();
+    }
   }
 
   startGrowthClock() {
     this.growthInterval = setInterval(() => {
-      this.updateGrowthStage();
-      if (this.growthStage > this.maxGrowthStage + 1 || this.needsWater) {
+      if (this.growthStage > this.maxGrowthStage || this.needsWater) {
         this.removePlantElement();
         return;
       }
 
-      if (!this.needsWater) {
+      this.updateGrowthStage();
+      this.growthStage += 1;
+
+      if (this.growthStage <= this.maxGrowthStage) {
         this.plantNeedsWater();
+        this.needsWater = true;
       }
-      this.needsWater = !this.needsWater;
     }, 5000);
   }
 
   updateGrowthStage() {
-    this.growthStage += 1;
     this.element.dataset.stage = this.growthStage;
   }
 
@@ -86,6 +91,19 @@ class Plant {
     const newBlock = new PlowedField(null, block.position, parentElement);
     removeBlock(block);
     addBlock(newBlock);
+  }
+
+  harvest() {
+    if (this.growthStage < this.maxGrowthStage + 1) {
+      alert("Plant is not ready for harvest");
+      return;
+    }
+
+    state.money += this.sellPrice;
+    const moneyAmount = document.querySelector("#money-amount");
+    moneyAmount.textContent = `$${state.money}`;
+
+    this.removePlantElement();
   }
 }
 

@@ -15,11 +15,13 @@ export const state = {
 const gameBoard = document.getElementById("game-board");
 const toolsBoard = document.getElementById("tools-board");
 const seedsBoard = document.getElementById("seeds-board");
+const moneyAmount = document.getElementById("money-amount");
 
 function onStartGame() {
   createGameBoard();
   createGameTools();
   createGameSeeds();
+  setStartMoney();
 }
 
 function createGameBoard() {
@@ -70,8 +72,19 @@ function createGameTools() {
 function createGameSeeds() {
   const seeds = getSeeds();
   seeds.forEach((seed) => {
+    const container = document.createElement("div");
+
+    const priceElement = document.createElement("span");
+    priceElement.classList.add("seed-price");
+    priceElement.textContent = `$${seed.seedPrice}`;
+
     seedsBoard.appendChild(seed.element);
+    seed.element.appendChild(priceElement);
   });
+}
+
+function setStartMoney() {
+  moneyAmount.textContent = `$${state.money}`;
 }
 
 document.addEventListener("DOMContentLoaded", onStartGame);

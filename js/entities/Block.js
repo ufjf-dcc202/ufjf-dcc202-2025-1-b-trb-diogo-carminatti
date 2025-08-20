@@ -58,6 +58,16 @@ export class PlowedField extends Block {
     if (state.currentSeed !== null && state.currentSeed.type !== null) {
       const newPlant = state.currentSeed.getPlant(this.element);
       this.element.appendChild(newPlant.element);
+
+      if (state.money < state.currentSeed.seedPrice) {
+        alert("Not enough money");
+        return;
+      } else {
+        state.money -= state.currentSeed.seedPrice;
+      }
+
+      const moneyAmount = document.querySelector("#money-amount");
+      moneyAmount.textContent = `$${state.money}`;
     }
   }
 }
