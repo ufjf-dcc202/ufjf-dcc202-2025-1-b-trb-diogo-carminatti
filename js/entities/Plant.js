@@ -51,7 +51,7 @@ class Plant {
       }
 
       this.updateGrowthStage();
-    }, 10000);
+    }, 60000);
   }
 
   updateGrowthStage() {
