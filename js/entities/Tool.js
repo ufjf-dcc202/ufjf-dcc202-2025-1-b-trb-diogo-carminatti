@@ -4,6 +4,7 @@ export const toolsTypes = {
   PICKAXE: "pickaxe",
   HOE: "hoe",
   WATERING_CAN: "watering-can",
+  SCYTHE: "scythe",
 };
 
 class Tool {
@@ -66,5 +67,12 @@ export class WateringCan extends Tool {
   constructor(id, element) {
     element.dataset.type = toolsTypes.WATERING_CAN;
     super(id, "Watering Can", toolsTypes.WATERING_CAN, element);
+  }
+}
+
+export class Scythe extends Tool {
+  constructor(id, element) {
+    element.dataset.type = toolsTypes.SCYTHE;
+    super(id, "Scythe", toolsTypes.SCYTHE, element);
   }
 }
