@@ -39,14 +39,15 @@ export class EmptyField extends Block {
     if (
       state.currentTool !== null &&
       state.currentTool.type === "hoe" &&
-      this.element.innerHTML === "" &&
-      this.active
+      this.element.innerHTML === ""
     ) {
-      const newBlock = new PlowedField(this.id, this.position, this.element);
-      removeBlock(this);
-      addBlock(newBlock);
-    } else {
-      this.active = true;
+      if (this.active) {
+        const newBlock = new PlowedField(this.id, this.position, this.element);
+        removeBlock(this);
+        addBlock(newBlock);
+      } else {
+        this.active = true;
+      }
     }
   }
 }
@@ -60,16 +61,14 @@ export class PlowedField extends Block {
 
   handleClick() {
     if (state.currentSeed !== null && state.currentSeed.type !== null) {
-      const newPlant = state.currentSeed.getPlant(this.element);
-      this.element.appendChild(newPlant.element);
-
       if (state.money < state.currentSeed.seedPrice) {
-        alert("Not enough money");
+        alert("Sem dinheiro suficiente");
         return;
-      } else {
-        state.money -= state.currentSeed.seedPrice;
       }
 
+      state.money -= state.currentSeed.seedPrice;
+      const newPlant = state.currentSeed.getPlant(this.element);
+      this.element.appendChild(newPlant.element);
       const moneyAmount = document.querySelector("#money-amount");
       moneyAmount.textContent = `$${state.money}`;
     }

@@ -42,7 +42,7 @@ class Plant {
   startGrowthClock() {
     this.growthInterval = setInterval(() => {
       if (this.growthStage > this.maxGrowthStage || this.needsWater) {
-        this.removePlantElement();
+        this.removePlantElement(true);
         return;
       }
 
@@ -59,7 +59,7 @@ class Plant {
     this.element.dataset.stage = this.growthStage;
   }
 
-  removePlantElement() {
+  removePlantElement(active = false) {
     clearInterval(this.growthInterval);
     const parentElement = this.element.parentElement;
     const blockId = Number(parentElement.dataset.id);
@@ -72,8 +72,12 @@ class Plant {
       null,
       block.position,
       emptyFieldElement,
-      false
+      active
     );
+
+    newBlock.element.innerHTML = "";
+    block.element.parentElement.replaceChild(newBlock.element, this.element);
+
     removeBlock(block);
     addBlock(newBlock);
 
