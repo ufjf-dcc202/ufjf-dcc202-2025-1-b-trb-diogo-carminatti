@@ -130,7 +130,7 @@ export class Tomato extends Plant {
     element.dataset.type = "tomato";
     element.dataset.stage = 1;
 
-    super(id, "Tomato", 5, 16, element);
+    super(id, "Tomato", 5, 20, element);
   }
 }
 
@@ -139,6 +139,6 @@ export class Potato extends Plant {
     element.dataset.type = "potato";
     element.dataset.stage = 1;
 
-    super(id, "Potato", 6, 20, element);
+    super(id, "Potato", 6, 17, element);
   }
 }
