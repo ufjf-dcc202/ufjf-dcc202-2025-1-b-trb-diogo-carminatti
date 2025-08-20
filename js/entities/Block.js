@@ -9,6 +9,9 @@ export const blockTypes = {
 
 export class Block {
   constructor(id, position, element) {
+    element.classList.add("block");
+    element.dataset.id = id;
+
     this.id = id;
     this.position = position;
     this.element = element;
@@ -26,17 +29,18 @@ export class Block {
 
 export class EmptyField extends Block {
   constructor(id, position, element) {
-    element.dataset.type = blockTypes.EMPTY;
-    element.classList.add("block");
-
     super(id, position, element);
     this.element.addEventListener("click", this.handleClick);
+    this.element.dataset.type = blockTypes.EMPTY;
   }
 
   handleClick() {
-    if (state.currentTool.type === "hoe") {
+    if (
+      state.currentTool !== null &&
+      state.currentTool.type === "hoe" &&
+      this.element.innerHTML === ""
+    ) {
       const newBlock = new PlowedField(this.id, this.position, this.element);
-
       removeBlock(this);
       addBlock(newBlock);
     }
@@ -45,22 +49,15 @@ export class EmptyField extends Block {
 
 export class PlowedField extends Block {
   constructor(id, position, element) {
-    element.dataset.type = blockTypes.PLOWED;
-    element.classList.add("block");
-
     super(id, position, element);
     this.element.addEventListener("click", this.handleClick);
+    this.element.dataset.type = blockTypes.PLOWED;
   }
 
   handleClick() {
-    if (state.currentTool !== null && state.currentTool.type === "hoe") {
-      this.element.innerHTML = "";
-      return;
-    }
-
     if (state.currentSeed !== null && state.currentSeed.type !== null) {
       const newPlant = state.currentSeed.getPlant(this.element);
-      console.log("Plant added:", newPlant);
+      this.element.appendChild(newPlant.element);
     }
   }
 }
@@ -68,16 +65,10 @@ export class PlowedField extends Block {
 export class DryField extends Block {
   constructor(id, position, element) {
     super(id, position, element);
+    this.element.dataset.type = blockTypes.DRY;
   }
 
   handleClick() {
-    if (state.currentTool.type === "watering-can") {
-      const newElement = this.element;
-      newElement.dataset.type = blockTypes.PLOWED;
-      const newBlock = new PlowedField(this.id, this.position, newElement);
-
-      removeBlock(this);
-      addBlock(newBlock);
-    }
+    return;
   }
 }

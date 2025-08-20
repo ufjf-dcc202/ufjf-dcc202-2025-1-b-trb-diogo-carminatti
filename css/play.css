@@ -64,6 +64,8 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
+
+  z-index: 0;
 }
 
 .block[data-type="empty"] {
@@ -87,6 +89,8 @@ body {
 
   background-size: cover;
   background-position: center;
+
+  z-index: 10;
 }
 
 .block > .obstacle[data-type="rock"] {
@@ -194,6 +198,8 @@ body {
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat;
+
+  z-index: 10;
 }
 
 .plant[data-type="carrot"][data-stage="1"] {
@@ -212,6 +218,42 @@ body {
   background-image: url("../images/tomato/tomato-stage-1.png");
 }
 
+.plant[data-type="tomato"][data-stage="2"] {
+  background-image: url("../images/tomato/tomato-stage-2.png");
+}
+
+.plant[data-type="tomato"][data-stage="3"] {
+  background-image: url("../images/tomato/tomato-stage-3.png");
+}
+
+.plant[data-type="tomato"][data-stage="4"] {
+  background-image: url("../images/tomato/tomato-stage-4.png");
+}
+
+.plant[data-type="tomato"][data-stage="5"] {
+  background-image: url("../images/tomato/tomato-stage-5.png");
+}
+
 .plant[data-type="potato"][data-stage="1"] {
   background-image: url("../images/potato/potato-stage-1.png");
+}
+
+.plant[data-type="potato"][data-stage="2"] {
+  background-image: url("../images/potato/potato-stage-2.png");
+}
+
+.plant[data-type="potato"][data-stage="3"] {
+  background-image: url("../images/potato/potato-stage-3.png");
+}
+
+.plant[data-type="potato"][data-stage="4"] {
+  background-image: url("../images/potato/potato-stage-4.png");
+}
+
+.plant[data-type="potato"][data-stage="5"] {
+  background-image: url("../images/potato/potato-stage-5.png");
+}
+
+.plant[data-type="potato"][data-stage="6"] {
+  background-image: url("../images/potato/potato-stage-6.png");
 }

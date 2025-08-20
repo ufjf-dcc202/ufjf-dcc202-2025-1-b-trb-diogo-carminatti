@@ -1,8 +1,9 @@
 let blocks = [];
 
 export function addBlock(block) {
-  if (blocks.some((b) => b.position === block.position)) return;
+  if (findBlockByPosition(block.position)) return;
   block.id = blocks.length + 1;
+  block.element.dataset.id = block.id;
   blocks.push(block);
   return block;
 }
@@ -15,4 +16,12 @@ export function removeBlock(block) {
   blocks = blocks.filter((b) => b !== block);
   block.element.removeEventListener("click", block.handleClick);
   block.element = null;
+}
+
+export function findBlockById(id) {
+  return blocks.find((block) => block.id === id);
+}
+
+export function findBlockByPosition(position) {
+  return blocks.find((block) => block.position === position);
 }

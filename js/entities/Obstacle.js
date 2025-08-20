@@ -26,7 +26,7 @@ export class Rock extends Obstacle {
   }
 
   handleClick() {
-    if (state.currentTool.type === "pickaxe") {
+    if (state.currentTool !== null && state.currentTool.type === "pickaxe") {
       removeObstacle(this);
       this.element.remove();
     }
@@ -41,7 +41,7 @@ export class Bush extends Obstacle {
   }
 
   handleClick() {
-    if (state.currentTool.type === "hoe") {
+    if (state.currentTool !== null && state.currentTool.type === "hoe") {
       removeObstacle(this);
       this.element.remove();
     }

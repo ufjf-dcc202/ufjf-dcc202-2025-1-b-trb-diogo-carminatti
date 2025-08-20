@@ -1,6 +1,6 @@
 import { addPlant } from "../core/plants.js";
 import { state } from "../play.js";
-import { Carrot } from "./Plant.js";
+import { Carrot, Potato, Tomato } from "./Plant.js";
 
 export const seedTypes = {
   CARROT: "carrot",
@@ -56,10 +56,8 @@ export class CarrotSeed extends Seed {
     super(id, "carrot", seedTypes.CARROT, element);
   }
 
-  getPlant(parentElement) {
+  getPlant() {
     const plantElement = document.createElement("div");
-    parentElement.appendChild(plantElement);
-
     let newSeed = new Carrot(null, plantElement);
     newSeed = addPlant(newSeed);
     return newSeed;
@@ -71,11 +69,25 @@ export class PotatoSeed extends Seed {
     element.dataset.type = seedTypes.POTATO;
     super(id, "potato", seedTypes.POTATO, element);
   }
+
+  getPlant() {
+    const plantElement = document.createElement("div");
+    let newSeed = new Potato(null, plantElement);
+    newSeed = addPlant(newSeed);
+    return newSeed;
+  }
 }
 
 export class TomatoSeed extends Seed {
   constructor(id, element) {
     element.dataset.type = seedTypes.TOMATO;
     super(id, "tomato", seedTypes.TOMATO, element);
+  }
+
+  getPlant() {
+    const plantElement = document.createElement("div");
+    let newSeed = new Tomato(null, plantElement);
+    newSeed = addPlant(newSeed);
+    return newSeed;
   }
 }
