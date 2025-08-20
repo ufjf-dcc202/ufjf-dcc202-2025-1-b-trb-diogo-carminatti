@@ -152,6 +152,10 @@ body {
   background-image: url("../images/watering-can.png");
 }
 
+.tool[data-type="scythe"] {
+  background-image: url("../images/scythe.png");
+}
+
 .seeds-container {
   display: flex;
   flex-direction: column;

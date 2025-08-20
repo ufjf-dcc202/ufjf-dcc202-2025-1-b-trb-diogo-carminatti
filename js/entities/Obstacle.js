@@ -41,7 +41,7 @@ export class Bush extends Obstacle {
   }
 
   handleClick() {
-    if (state.currentTool !== null && state.currentTool.type === "hoe") {
+    if (state.currentTool !== null && state.currentTool.type === "scythe") {
       removeObstacle(this);
       this.element.remove();
     }
