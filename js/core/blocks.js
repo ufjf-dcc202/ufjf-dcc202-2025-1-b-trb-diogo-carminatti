@@ -1,7 +1,6 @@
 let blocks = [];
 
 export function addBlock(block) {
-  if (findBlockByPosition(block.position)) return;
   block.id = blocks.length + 1;
   block.element.dataset.id = block.id;
   blocks.push(block);

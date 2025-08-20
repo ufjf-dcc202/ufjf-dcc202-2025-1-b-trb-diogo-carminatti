@@ -46,17 +46,16 @@ class Plant {
         return;
       }
 
-      this.updateGrowthStage();
-      this.growthStage += 1;
-
-      if (this.growthStage <= this.maxGrowthStage) {
+      if (this.growthStage < this.maxGrowthStage && !this.needsWater) {
         this.plantNeedsWater();
-        this.needsWater = true;
       }
-    }, 5000);
+
+      this.updateGrowthStage();
+    }, 10000);
   }
 
   updateGrowthStage() {
+    this.growthStage += 1;
     this.element.dataset.stage = this.growthStage;
   }
 
@@ -66,7 +65,10 @@ class Plant {
     const blockId = Number(parentElement.dataset.id);
     const block = findBlockById(blockId);
 
-    const newBlock = new EmptyField(null, block.position, parentElement);
+    const emptyFieldElement = document.querySelector(
+      `.block[data-id='${blockId}']`
+    );
+    const newBlock = new EmptyField(null, block.position, emptyFieldElement);
     removeBlock(block);
     addBlock(newBlock);
 
@@ -74,6 +76,8 @@ class Plant {
   }
 
   plantNeedsWater() {
+    this.needsWater = true;
+
     const parentElement = this.element.parentElement;
     const blockId = Number(parentElement.dataset.id);
     const block = findBlockById(blockId);
@@ -94,8 +98,8 @@ class Plant {
   }
 
   harvest() {
-    if (this.growthStage < this.maxGrowthStage + 1) {
-      alert("Plant is not ready for harvest");
+    if (this.growthStage < this.maxGrowthStage) {
+      alert("A planta não está pronta para a colheita");
       return;
     }
 
