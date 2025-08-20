@@ -128,7 +128,7 @@ export class Carrot extends Plant {
 export class Tomato extends Plant {
   constructor(id, element) {
     element.dataset.type = "tomato";
-    element.dataset.stage = this.growthStage;
+    element.dataset.stage = 1;
 
     super(id, "Tomato", 5, 16, element);
   }
